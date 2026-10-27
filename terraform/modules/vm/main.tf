@@ -17,7 +17,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     interface    = "scsi0"
     iothread     = true
     discard      = "on"
-    size         = 40
+    size         = var.disk_size
   }
   serial_device {
     device = "socket"

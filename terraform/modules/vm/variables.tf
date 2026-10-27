@@ -58,6 +58,13 @@ variable "image_id" {
   nullable    = false
 }
 
+variable "disk_size" {
+  description = "Size of disk to create in GiB"
+  type        = number
+  nullable    = false
+  default     = 40
+}
+
 variable "initialization" {
   description = "Cloud-init file IDs to attach to the VM: network_data, user_data, vendor_data, meta_data"
   type = object({

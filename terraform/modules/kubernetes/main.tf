@@ -73,6 +73,7 @@ module "workers" {
   node_name = var.node_name
   vm_name   = count.index % 2 == 0 ? "hoddit-${count.index / 2}" : "doddit-${(count.index - 1) / 2}"
   image_id  = var.debian_image_id
+  disk_size = 128
   initialization = {
     network_data_file_id = module.network_config[count.index + var.n_control_planes].id
     user_data_file_id    = module.worker_user_config[count.index].id
