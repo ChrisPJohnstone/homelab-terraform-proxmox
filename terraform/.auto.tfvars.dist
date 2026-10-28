@@ -4,3 +4,11 @@ token_name              = "tf_token"
 token_key               = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 ssh_username            = "terraform"
 postgres_admin_password = "password"
+
+guest_username          = "root"
+guest_subnet            = "192.168.0"
+guest_subnet_mask       = 24
+guest_gateway           = 1
+guest_dns_servers       = ["8.8.8.8", "1.1.1.1"]
+database_ip             = 149
+kubernetes_start_ip     = 150

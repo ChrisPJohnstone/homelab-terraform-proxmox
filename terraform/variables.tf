@@ -63,3 +63,54 @@ variable "postgres_admin_password" {
   nullable    = false
   sensitive   = true
 }
+
+variable "guest_username" {
+  description = "User to create on guests"
+  type        = string
+  nullable    = false
+}
+
+variable "guest_network_interface" {
+  description = "Network interface name inside the guest"
+  type        = string
+  nullable    = false
+  default     = "ens18"
+}
+
+variable "guest_subnet" {
+  description = "Subnet for VM IP's"
+  type        = string
+  nullable    = false
+  default     = "192.168.0"
+}
+
+variable "guest_subnet_mask" {
+  description = "Subnet mask for guest"
+  type        = number
+  nullable    = false
+  default     = 24
+}
+
+variable "guest_gateway" {
+  description = "Last octet of guest gateway"
+  type        = number
+  nullable    = false
+}
+
+variable "guest_dns_servers" {
+  description = "DNS servers for the guest"
+  type        = list(string)
+  nullable    = false
+}
+
+variable "database_ip" {
+  description = "Last octet for database VM's IP"
+  type        = string
+  nullable    = false
+}
+
+variable "kubernetes_start_ip" {
+  description = "Number to start last octet in kubernetes ip's from"
+  type        = number
+  nullable    = false
+}

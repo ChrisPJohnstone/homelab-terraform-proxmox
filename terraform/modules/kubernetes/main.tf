@@ -7,7 +7,7 @@ module "network_config" {
   # TODO: Improve path
   source_raw = templatefile("../cloud-init/network.yml", {
     guest_network_interface = var.guest_network_interface
-    guest_ip                = "${var.ip_prefix}.${count.index + var.start_ip}/${var.guest_subnet}"
+    guest_ip                = "${var.guest_subnet}.${count.index + var.start_ip}/${var.guest_subnet_mask}"
     guest_gateway           = var.guest_gateway
     guest_dns_servers       = jsonencode(var.guest_dns_servers)
   })
@@ -88,7 +88,7 @@ resource "null_resource" "wait_for_cloud_init" {
   count = var.n_control_planes + var.n_workers
   provisioner "local-exec" {
     command = <<-EOF
-      TARGET="${var.ip_prefix}.${var.start_ip + count.index}"
+      TARGET="${var.guest_subnet}.${var.start_ip + count.index}"
       echo "Waiting on SSH connection to $TARGET"
       while ! ${var.ssh_cmd} ${var.guest_username}@$TARGET; do sleep 10; done
       echo "Waiting on cloudinit"
@@ -103,7 +103,7 @@ resource "null_resource" "wait_for_cloud_init" {
 #   count      = var.n_control_planes - 1
 #   provisioner "local-exec" {
 #     command = <<-EOF
-#       TARGET="${var.ip_prefix}.${var.start_ip + count.index + 1}"
+#       TARGET="${var.guest_subnet}.${var.start_ip + count.index + 1}"
 #       echo "Connecting $TARGET to cluster"
 #       JOIN_CMD=$(${local.first_node_ssh_cmd} "sudo kubeadm token create --print-join-command 2>/dev/null")
 #       ${var.ssh_cmd} ${var.guest_username}@$TARGET "sudo $JOIN_CMD --cri-socket=unix:///var/run/crio/crio.sock --control-plane"
@@ -116,7 +116,7 @@ resource "null_resource" "connect_workers" {
   count      = var.n_workers
   provisioner "local-exec" {
     command = <<-EOF
-      TARGET="${var.ip_prefix}.${var.start_ip + var.n_control_planes + count.index}"
+      TARGET="${var.guest_subnet}.${var.start_ip + var.n_control_planes + count.index}"
       echo "Connecting $TARGET to cluster"
       JOIN_CMD=$(${local.first_node_ssh_cmd} "sudo kubeadm token create --print-join-command 2>/dev/null")
       ${var.ssh_cmd} ${var.guest_username}@$TARGET "sudo $JOIN_CMD --cri-socket=unix:///var/run/crio/crio.sock"

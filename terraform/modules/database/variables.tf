@@ -42,32 +42,28 @@ variable "guest_ip" {
   nullable    = false
 }
 
-variable "guest_subnet" {
-  description = "Subnet for guest"
+variable "guest_subnet_mask" {
+  description = "Subnet mask for guest ip"
   type        = number
   nullable    = false
-  default     = 24
 }
 
 variable "guest_gateway" {
   description = "Default gateway for the guest"
   type        = string
   nullable    = false
-  default     = "192.168.0.1"
 }
 
 variable "guest_dns_servers" {
   description = "DNS servers for the guest"
   type        = list(string)
   nullable    = false
-  default     = ["8.8.8.8", "1.1.1.1"]
 }
 
 variable "guest_network_interface" {
   description = "Network interface name inside the guest"
   type        = string
   nullable    = false
-  default     = "ens18"
 }
 
 variable "admin_password" {
