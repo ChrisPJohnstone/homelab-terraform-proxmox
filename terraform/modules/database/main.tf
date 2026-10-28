@@ -19,11 +19,12 @@ module "user_config" {
   file_name    = "database-user.yml"
   # TODO: Improve path
   source_raw = templatefile("../cloud-init/database-user-data.yml", {
-    hostname       = var.hostname
-    guest_username = var.guest_username
-    ssh_public_key = file(var.ssh_public_key_file)
-    guest_cidr     = local.guest_cidr
-    admin_password = var.admin_password
+    hostname           = var.hostname
+    guest_username     = var.guest_username
+    ssh_public_key     = file(var.ssh_public_key_file)
+    postgresql_version = var.postgresql_version
+    guest_cidr         = local.guest_cidr
+    admin_password     = var.admin_password
   })
 }
 

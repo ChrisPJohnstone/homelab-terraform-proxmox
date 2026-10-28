@@ -57,13 +57,6 @@ variable "node_name" {
   default     = "proxmox"
 }
 
-variable "postgres_admin_password" {
-  description = "Password to set for postgres database"
-  type        = string
-  nullable    = false
-  sensitive   = true
-}
-
 variable "guest_username" {
   description = "User to create on guests"
   type        = string
@@ -112,5 +105,24 @@ variable "database_ip" {
 variable "kubernetes_start_ip" {
   description = "Number to start last octet in kubernetes ip's from"
   type        = number
+  nullable    = false
+}
+
+variable "postgresql_version" {
+  description = "Version of postgres to install"
+  type        = number
+  nullable    = false
+}
+
+variable "postgres_admin_password" {
+  description = "Password to set for postgres database"
+  type        = string
+  nullable    = false
+  sensitive   = true
+}
+
+variable "kubernetes_version" {
+  description = "Version of kubernetes & cri-o to install"
+  type        = string
   nullable    = false
 }

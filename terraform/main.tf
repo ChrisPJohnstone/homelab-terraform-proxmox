@@ -14,11 +14,12 @@ module "database" {
   guest_username          = var.guest_username
   ssh_public_key_file     = var.ssh_public_key_file
   guest_ip                = "${var.guest_subnet}.${var.database_ip}"
-  admin_password          = var.postgres_admin_password
   guest_network_interface = var.guest_network_interface
   guest_subnet_mask       = var.guest_subnet_mask
   guest_gateway           = "${var.guest_subnet}.${var.guest_gateway}"
   guest_dns_servers       = var.guest_dns_servers
+  postgresql_version      = var.postgresql_version
+  admin_password          = var.postgres_admin_password
 }
 
 module "kubernetes" {
@@ -28,7 +29,7 @@ module "kubernetes" {
   debian_image_id         = module.debian_image.id
   guest_username          = var.guest_username
   ssh_public_key_file     = var.ssh_public_key_file
-  kubernetes_version      = "v1.36"
+  kubernetes_version      = var.kubernetes_version
   n_control_planes        = 1
   n_workers               = 2
   guest_network_interface = var.guest_network_interface

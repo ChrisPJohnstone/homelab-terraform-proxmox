@@ -66,6 +66,12 @@ variable "guest_network_interface" {
   nullable    = false
 }
 
+variable "postgresql_version" {
+  description = "Version of postgres to install"
+  type        = number
+  nullable    = false
+}
+
 variable "admin_password" {
   description = "Password to set for admin user"
   type        = string

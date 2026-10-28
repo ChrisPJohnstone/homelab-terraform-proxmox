@@ -9,10 +9,10 @@ users:
       - ${ssh_public_key}
 package_update: true
 packages:
-  - postgresql
-  - postgresql-client
+  - postgresql-${postgresql_version}
+  - postgresql-client-${postgresql_version}
 runcmd:
-  - sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/postgresql/15/main/postgresql.conf
-  - echo "host all all ${guest_cidr} scram-sha-256" | sudo tee -a /etc/postgresql/15/main/pg_hba.conf
+  - sudo sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /etc/postgresql/${postgresql_version}/main/postgresql.conf
+  - echo "host all all ${guest_cidr} scram-sha-256" | sudo tee -a /etc/postgresql/${postgresql_version}/main/pg_hba.conf
   - echo "ALTER USER postgres WITH PASSWORD '${admin_password}';" | sudo -u postgres psql
   - sudo systemctl restart postgresql
