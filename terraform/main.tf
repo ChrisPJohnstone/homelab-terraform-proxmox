@@ -2,8 +2,8 @@ module "debian_image" {
   source       = "./modules/files/"
   node_name    = var.node_name
   content_type = "import"
-  file_name    = "debian-12.qcow2"
-  source_file  = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.qcow2"
+  file_name    = "debian-13.qcow2"
+  source_file  = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-amd64.qcow2"
 }
 
 module "database" {
