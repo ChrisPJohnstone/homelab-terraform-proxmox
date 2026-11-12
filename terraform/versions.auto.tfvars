@@ -2,4 +2,4 @@
 postgresql_version = "16"
 
 # renovate: datasource=github-releases depName=kubernetes/kubernetes
-kubernetes_version = "v1.36"
+kubernetes_version = "v1.37"
