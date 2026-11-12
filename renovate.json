@@ -1,3 +1,29 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": ["config:recommended"],
+    "customManagers": [
+        {
+            "customType": "regex",
+            "description": "Update versions in terraform/versions.auto.tfvars",
+            "managerFilePatterns": [
+                "/^terraform\\/versions\\.auto\\.tfvars$/"
+            ],
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\s]+)(?: registryUrl=(?<registryUrl>[^\\s]+))?[ \\t]*\\r?\\n[a-z_][a-z0-9_]*[ \\t]*=[ \\t]*\"(?<currentValue>[^\"]+)\""
+            ]
+        }
+    ],
+    "packageRules": [
+        {
+            "matchDatasources": ["deb"],
+            "matchPackageNames": ["postgresql"],
+            "extractVersion": "^(?<version>\\d+)"
+        },
+        {
+            "matchDatasources": ["github-releases"],
+            "matchPackageNames": ["kubernetes/kubernetes"],
+            "versioning": "loose",
+            "extractVersion": "^(?<version>v\\d+\\.\\d+)"
+        }
+    ]
 }
